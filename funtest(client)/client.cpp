@@ -5,7 +5,7 @@ extern bool isInteger(std::string &word);
 extern bool isDouble(std::string &word);
 
 Client::Client()
-{
+{ 
 	int res;
 
 	this->sock_clt = INVALID_SOCKET;
