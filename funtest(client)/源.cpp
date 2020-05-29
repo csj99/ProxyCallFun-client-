@@ -34,7 +34,8 @@ void clearcin()
 	std::cin.clear();
 }
 
-bool isDecat(std::string &word)
+//功能：如果字符串内容能代表一个整形数字则返回T
+bool isInteger(std::string &word)
 {
 	if (word.find_first_not_of("01234567890") != std::string::npos)
 		return false;
@@ -42,6 +43,7 @@ bool isDecat(std::string &word)
 		return true;
 }
 
+//功能：如果字符串内容能代表一个浮点数则返回T
 bool isDouble(std::string &word)
 {
 	size_t fpos;

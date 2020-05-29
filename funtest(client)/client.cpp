@@ -1,7 +1,7 @@
 #include "client.h"
 
 extern void clearcin();
-extern bool isDecat(std::string &word);
+extern bool isInteger(std::string &word);
 extern bool isDouble(std::string &word);
 
 Client::Client()
@@ -68,13 +68,42 @@ int Client::GetPara(char *callPara)
 
 		switch (types)
 		{
-		case 'c':case'C':
+		case 's':case'S':
+			std::getline(std::cin, line);
+			sline.str(line);
 			
+			while (std::getline(sline, word, ' '))
+				ssplit.push_back(word);
+
+			if (ssplit.size() != 0)
+				Para.append("\"string\": ");
+			if (ssplit.size() == 1)
+			{
+				Para.append("\"");
+				Para.append(ssplit.front());
+				ssplit.pop_front();
+				Para.append("\"");
+				Para.append(",");
+			}
+			else if (ssplit.size() > 1)
+			{
+				Para.append("[");
+				while (!ssplit.empty())
+				{
+					Para.append("\"");
+					Para.append(ssplit.front());
+					ssplit.pop_front();
+					Para.append("\"");
+					Para.append(",");
+				}
+				Para.append("]");
+				Para.append(",");
+			}
 			break;
 		case 'd':case 'D':
 			std::getline(std::cin, line);
 			sline.str(line);
-			if (line.find_first_not_of("0123456789 ") != std::string::npos)
+			if (!isInteger(line))
 			{
 				printf("error input form!!!\n");
 				break;
@@ -111,7 +140,7 @@ int Client::GetPara(char *callPara)
 		case 'f':case 'F':
 			std::getline(std::cin, line);
 			sline.str(line);
-			if (line.find_first_not_of("0123456789. ") != std::string::npos)
+			if (!isDouble(line))
 			{
 				printf("error input form!!!\n");
 				break;
